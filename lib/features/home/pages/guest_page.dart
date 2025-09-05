@@ -32,7 +32,9 @@ class GuestPage extends GetView<GuestController> {
                   Row(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                           Get.toNamed(AppRoutes.auth);
+                        },
                         child: Text(
                           "Log In",
                           style: TextStyle(fontSize: 14.sp),
