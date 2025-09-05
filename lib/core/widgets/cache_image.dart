@@ -7,14 +7,16 @@ class AppCachedImage extends StatelessWidget {
   final double? height;
   final double? width;
   final double borderRadius;
+  final BoxFit fit;
 
   const AppCachedImage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.height,
     this.width,
     this.borderRadius = 16,
-  }) : super(key: key);
+    this.fit = BoxFit.cover,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +24,20 @@ class AppCachedImage extends StatelessWidget {
       borderRadius: BorderRadius.circular(borderRadius.r),
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        height: height ?? 180.sp,
-        width: width ?? 150.sp,
-        fit: BoxFit.cover,
+        height: height,
+        width: width,
+        fit: fit,
+        memCacheHeight: height != null ? (height! * 2).toInt() : null, // Improve memory caching
+        memCacheWidth: width != null ? (width! * 2).toInt() : null,
         placeholder: (context, url) => Container(
-          height: height ?? 180.sp,
-          width: width ?? 150.sp,
+          height: height,
+          width: width,
           color: Colors.grey[300],
           child: const Center(child: CircularProgressIndicator()),
         ),
         errorWidget: (context, url, error) => Container(
-          height: height ?? 180.sp,
-          width: width ?? 150.sp,
+          height: height,
+          width: width,
           color: Colors.grey[300],
           child: const Icon(Icons.broken_image, color: Colors.red),
         ),

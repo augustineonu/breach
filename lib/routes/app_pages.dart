@@ -1,11 +1,11 @@
 import 'package:breach/features/auth/domain/bindings/auth_binding.dart';
 import 'package:breach/features/auth/pages/auth_page.dart';
 import 'package:breach/features/home/domain/bindings/guest_binding.dart';
-import 'package:breach/features/home/presentation/guest_page.dart';
-import 'package:breach/features/home/presentation/home_page.dart';
-import 'package:breach/features/onboarding/presentation/onboarding_binding.dart';
-import 'package:breach/features/onboarding/presentation/pages/interest_page.dart';
-import 'package:breach/features/onboarding/presentation/pages/welcome_page.dart';
+import 'package:breach/features/home/pages/guest_page.dart';
+import 'package:breach/features/home/pages/home_page.dart';
+import 'package:breach/features/onboarding/domain/bindings/onboarding_binding.dart';
+import 'package:breach/features/onboarding/pages/interest_page.dart';
+import 'package:breach/features/onboarding/pages/welcome_page.dart';
 import 'package:breach/routes/app_routes.dart';
 import 'package:get/get.dart';
 import '../features/home/domain/bindings/home_binding.dart';

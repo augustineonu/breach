@@ -6,6 +6,7 @@ class AppButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
   final bool isEnabled;
+  final bool isLoading;
   final double borderRadius;
   final EdgeInsets? padding;
   final Color? backgroundColor;
@@ -17,6 +18,7 @@ class AppButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.isEnabled = true,
+    this.isLoading = false,
     this.borderRadius = 8.0,
     this.padding,
     this.backgroundColor,
@@ -26,10 +28,13 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Button is disabled if either isEnabled is false OR isLoading is true
+    final bool buttonEnabled = isEnabled && !isLoading;
+    
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: minimumSize ?? Size(double.infinity, 48.h),
-        backgroundColor: isEnabled
+        backgroundColor: buttonEnabled
             ? (backgroundColor ?? AppColors.primary)
             : AppColors.greyLight,
         shape: RoundedRectangleBorder(
@@ -38,17 +43,28 @@ class AppButton extends StatelessWidget {
         padding:
             padding ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       ),
-      onPressed: isEnabled ? onPressed : null,
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w600,
-          color: isEnabled
-              ? (textColor ?? AppColors.background)
-              : AppColors.grey,
-        ),
-      ),
+      onPressed: buttonEnabled ? onPressed : null,
+      child: isLoading
+          ? SizedBox(
+              height: 20.h,
+              width: 20.w,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  textColor ?? AppColors.background,
+                ),
+              ),
+            )
+          : Text(
+              label,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: buttonEnabled
+                    ? (textColor ?? AppColors.background)
+                    : AppColors.grey,
+              ),
+            ),
     );
   }
 }

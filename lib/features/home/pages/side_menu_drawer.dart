@@ -216,7 +216,7 @@ class DrawerMenuItem extends StatelessWidget {
       ),
       onTap: onTap,
       selected: isActive,
-      selectedTileColor: AppColors.primary.withOpacity(0.08),
+      selectedTileColor: AppColors.primary.withValues(alpha:0.08),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.h),
       horizontalTitleGap: 16.w,

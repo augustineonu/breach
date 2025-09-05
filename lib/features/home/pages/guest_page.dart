@@ -1,8 +1,6 @@
 import 'package:breach/core/constants/app_assets.dart';
 import 'package:breach/core/constants/app_colors.dart';
-import 'package:breach/core/utils/app_utils.dart';
 import 'package:breach/core/widgets/app_button.dart';
-import 'package:breach/core/widgets/cache_image.dart';
 import 'package:breach/core/widgets/category_chip.dart';
 import 'package:breach/features/home/domain/controllers/guest_controller.dart';
 import 'package:breach/features/home/widgets/custom_tab_indicator.dart';
@@ -11,7 +9,6 @@ import 'package:breach/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../domain/controllers/home_controller.dart';
 
 class GuestPage extends GetView<GuestController> {
   const GuestPage({super.key});
@@ -172,7 +169,7 @@ class GuestPage extends GetView<GuestController> {
                           ),
 
                           // Tab Content with Fixed Height
-                          TabViewWIdget(controller: controller),
+                          TabViewWidget(controller: controller),
                         ],
                       ),
                     ),

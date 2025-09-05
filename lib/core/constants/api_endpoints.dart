@@ -1,5 +1,6 @@
 class ApiEndpoints {
   static const String baseUrl = "https://breach-api.qa.mvm-tech.xyz/api/";
+  static const String websocketUrl = "wss://breach-api-ws.qa.mvm-tech.xyz?token=";
   static const String register = "auth/register";
   static const String login = "auth/login";
   static const String blogCategories = "blog/categories";

@@ -26,19 +26,19 @@ class AuthPage extends GetView<AuthController> {
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // SizedBox(height: 24.h),
-                    Image.asset(
-                      AppAssets.breachLogo,
-                      width: 100.w,
-                      height: 100.h,
-                    ),
+                child: Obx(() {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // SizedBox(height: 24.h),
+                      Image.asset(
+                        AppAssets.breachLogo,
+                        width: 100.w,
+                        height: 100.h,
+                      ),
 
-                    // Title
-                    Obx(
-                      () => Text(
+                      // Title
+                      Text(
                         controller.isLogin.value
                             ? "Log in to Breach"
                             : "Join Breach",
@@ -48,13 +48,11 @@ class AuthPage extends GetView<AuthController> {
                           color: AppColors.textPrimary,
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 8.h),
+                      SizedBox(height: 8.h),
 
-                    // Subtitle
-                    Obx(
-                      () => Text(
+                      // Subtitle
+                      Text(
                         controller.isLogin.value
                             ? "Access your account and discover content that matters to you."
                             : "Break through the noise and discover content that matters to you in under 3 minutes.",
@@ -63,98 +61,104 @@ class AuthPage extends GetView<AuthController> {
                           color: AppColors.textSecondary,
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 32.h),
+                      SizedBox(height: 32.h),
 
-                    // Email field
-                    Obx(
-                      () => TextField(
-                        controller: controller.emailController,
-                        onChanged: (val) => controller.email.value = val,
+                      // Email field
+                      Obx(
+                        () => TextField(
+                          controller: controller.emailController,
+                          onChanged: (val) => controller.email.value = val,
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            hintText: "Enter email",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            errorText: controller.email.value.isEmpty
+                                ? null
+                                : (controller.isEmailValid
+                                      ? null
+                                      : "Enter a valid email"),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 16.h),
+
+                      // Password field
+                      TextField(
+                        controller: controller.passwordController,
+                        obscureText: !controller.isVisible.value,
+                        onChanged: (val) => controller.password.value = val,
                         decoration: InputDecoration(
-                          labelText: "Email",
-                          hintText: "Enter email",
+                          suffixIcon: IconButton(
+                            onPressed: controller.isVisible.toggle,
+                            icon: Icon(
+                              controller.isVisible.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
+                          ),
+                          labelText: "Password",
+                          hintText: "Enter password",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.r),
                           ),
-                          errorText: controller.email.value.isEmpty
-                              ? null
-                              : (controller.isEmailValid
-                                    ? null
-                                    : "Enter a valid email"),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 16.h),
+                      SizedBox(height: 84.h),
 
-                    // Password field
-                    TextField(
-                      controller: controller.passwordController,
-                      obscureText: true,
-                      onChanged: (val) => controller.password.value = val,
-                      decoration: InputDecoration(
-                        labelText: "Password",
-                        hintText: "Enter password",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: 84.h),
-
-                    // Continue button
-                   
-                    Obx(
-                      () => AppButton(
+                      // Continue button
+                      AppButton(
                         label: "Continue",
+                        isLoading: controller.isLoading.value,
                         isEnabled: controller.isFormValid,
-                        onPressed: controller.handleAuth,
+                        onPressed: controller.authenticate,
                       ),
-                    ),
 
-                    SizedBox(height: 16.h),
+                      SizedBox(height: 16.h),
 
-                    // RichText: toggle login / signup
-                    Center(
-                      child: Obx(
-                        () => RichText(
-                          text: TextSpan(
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.textSecondary,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: controller.isLogin.value
-                                    ? "Don't have an account? "
-                                    : "Already have an account? ",
+                      // RichText: toggle login / signup
+                      Center(
+                        child: Obx(
+                          () => RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.textSecondary,
                               ),
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: GestureDetector(
-                                  onTap: controller.toggleAuthMode,
-                                  child: Text(
-                                    controller.isLogin.value
-                                        ? "Sign up"
-                                        : "Log in",
-                                    style: TextStyle(
-                                      color: AppColors.primary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14.sp,
+                              children: [
+                                TextSpan(
+                                  text: controller.isLogin.value
+                                      ? "Don't have an account? "
+                                      : "Already have an account? ",
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  child: GestureDetector(
+                                    onTap: controller.toggleAuthMode,
+                                    child: Text(
+                                      controller.isLogin.value
+                                          ? "Sign up"
+                                          : "Log in",
+                                      style: TextStyle(
+                                        color: AppColors.primary,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14.sp,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  );
+                }),
               ),
             ),
             Obx(

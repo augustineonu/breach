@@ -3,9 +3,9 @@ import 'package:breach/core/widgets/category_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/widgets/app_button.dart';
-import '../controllers/onboarding_controller.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/app_button.dart';
+import '../domain/controllers/onboarding_controller.dart';
 
 class InterestsPage extends GetView<OnboardingController> {
   const InterestsPage({super.key});
